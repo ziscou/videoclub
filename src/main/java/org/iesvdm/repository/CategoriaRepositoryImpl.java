@@ -31,7 +31,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository{
 
 	@Override
 	public CategoriaDTO findDTO(Long id) {
-		
+		//select i.id_almacen, count(i.id_pelicula) from categoria c left outer join pelicula_categoria pc on c.id_categoria=pc.id_categoria left outer join pelicula p on pc.id_pelicula= p.id_pelicula left outer join inventario i on i.id_pelicula = p.id_pelicula where c.id_categoria=2 group by c.id_categoria, i.id_almacen;
 		CategoriaDTO categoriaDTO = this.jdbcTemplate.queryForObject("""
 					select C.*, count(P.id_pelicula) as conteoPelisCat from categoria C left join pelicula_categoria P_C on C.id_categoria = P_C.id_categoria 
 					left join pelicula P on P_C.id_pelicula = P.id_pelicula where C.id_categoria = ? group by C.id_categoria 	

@@ -1,0 +1,101 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="#{crearPelicula}">Crear Película</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<!-- Para livereload in html -->
+<script src="http://localhost:35729/livereload.js"></script>
+</head>
+<body>
+<!-- utilizando grid bootstrap tipo: stacked to horizontal -->
+<form th:action="@{/peliculas/crear}" th:object="${pelicula}" method="post">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12"><span class="h1" th:text="#{crearPelicula}"></span></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12"><hr/></div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="titulo" th:text="#{pelicula.titulo}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{titulo}"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="descripcion" th:text="#{pelicula.descripcion}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{descripcion}"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="anyoLanzamiento" th:text="#{pelicula.anyoLanzamiento}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{anyoLanzamiento}"/>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="idIdioma" th:text="#{pelicula.idioma}"></label></div>
+		<div class="col-md-6">
+			<select th:field="*{idIdioma}">
+				<option th:each="idioma: ${listaIdiomas}" th:value="${idioma.id}" th:text="${idioma.nombre}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="idIdiomaOriginal" th:text="#{pelicula.titulo}"></label></div>
+		<div class="col-md-6">
+			<select th:field="*{idIdiomaOriginal}">
+				<option th:each="idioma: ${listaIdiomas}" th:value="${idioma.id}" th:text="${idioma.nombre}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="duracionAlquiler" th:text="#{pelicula.duracionAlquiler}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{duracionAlquiler}" type="number">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="rentalRate" th:text="#{pelicula.precio}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{rentalRate}" type="number" step="any" >
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="duracion" th:text="#{pelicula.duracion}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{duracion}" type="number">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="replacementCost" th:text="#{pelicula.costeReempl}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{replacementCost}" type="number" step="any" >
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="clasificacion" th:text="#{pelicula.clasificacion}"></label></div>
+		<div class="col-md-6">
+			<select th:field="*{clasificacion}">
+				<option th:each="clasificacion: ${arrayClasificaciones}" th:value="${clasificacion}" th:text="${clasificacion}"></option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><label for="caracteristicasEspeciales" th:text="#{pelicula.caracteristicas}"></label></div>
+		<div class="col-md-6">
+			<input th:field="*{caracteristicasEspeciales}" type="text">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-6"><input type="submit" th:value="#{btn.guardar}"/></div>
+		<div class="col-md-6">
+		</div>
+	</div>
+</div>
+</form>
+</body>
+</html>

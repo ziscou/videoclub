@@ -29,6 +29,25 @@
 		<div class="col-md-6" th:text="#{categoria.conteoPeliculas}"></div>
 		<div class="col-md-6" th:text="${categoriaDTO.conteoPeliculas}"></div>
 	</div>
-</div>
+
+		<br><br><br><br>
+	
+	
+		<h2>Lista De Peliculas por Almacen </h2>
+		<div class="row">
+			<div class="col-md-3" >Almacen</div>
+			<div class="col-md-3" >Num_Peliculas</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12"><hr/></div>
+		</div>
+		<div class="row" th:each="alm : ${listaAlm}">
+			<div class="col-md-3" th:text="${alm.id} != 0 ? ${alm.id} : 'Sin Almacen'">Almacen</div>
+			<div class="col-md-3" th:text="${alm.numPel}">Num_Peliculas</div>
+
+		</div>
+	</div>
+	
+
 </body>
 </html>

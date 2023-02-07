@@ -1,8 +1,10 @@
 package org.iesvdm.repository;
 
 import java.util.List;
+import java.util.Map;
 
 import org.iesvdm.domain.Categoria;
+import org.iesvdm.dto.AlmacenDTO;
 import org.iesvdm.dto.CategoriaDTO;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,7 +33,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository{
 
 	@Override
 	public CategoriaDTO findDTO(Long id) {
-		//select i.id_almacen, count(i.id_pelicula) from categoria c left outer join pelicula_categoria pc on c.id_categoria=pc.id_categoria left outer join pelicula p on pc.id_pelicula= p.id_pelicula left outer join inventario i on i.id_pelicula = p.id_pelicula where c.id_categoria=2 group by c.id_categoria, i.id_almacen;
+		
 		CategoriaDTO categoriaDTO = this.jdbcTemplate.queryForObject("""
 					select C.*, count(P.id_pelicula) as conteoPelisCat from categoria C left join pelicula_categoria P_C on C.id_categoria = P_C.id_categoria 
 					left join pelicula P on P_C.id_pelicula = P.id_pelicula where C.id_categoria = ? group by C.id_categoria 	
@@ -54,6 +56,31 @@ public class CategoriaRepositoryImpl implements CategoriaRepository{
 
 		return listaCategoria;
 	}
-	
+
+	@Override
+	public List<AlmacenDTO> findPelAlm(Long id) {
+		//
+		List<AlmacenDTO> lista = this.jdbcTemplate.query("""
+SELECT 
+    i.id_almacen AS id, COUNT(p.id_pelicula) AS peliculas
+FROM
+    categoria c
+        LEFT OUTER JOIN
+    pelicula_categoria pc ON c.id_categoria = pc.id_categoria
+        LEFT OUTER JOIN
+    pelicula p ON pc.id_pelicula = p.id_pelicula
+        LEFT OUTER JOIN
+    inventario i ON i.id_pelicula = p.id_pelicula
+WHERE
+    c.id_categoria = ?
+GROUP BY c.id_categoria , i.id_almacen;
+				"""
+										, (rs, rowNum) -> new AlmacenDTO(
+												rs.getInt("id"),
+												rs.getLong("peliculas"))
+										, id);
+		
+		return lista;
+	}
 	
 }

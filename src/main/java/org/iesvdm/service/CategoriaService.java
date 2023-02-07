@@ -1,6 +1,9 @@
 package org.iesvdm.service;
 
+import java.util.List;
+
 import org.iesvdm.domain.Categoria;
+import org.iesvdm.dto.AlmacenDTO;
 import org.iesvdm.dto.CategoriaDTO;
 import org.iesvdm.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,10 @@ public class CategoriaService {
 	
 	public CategoriaDTO oneDTO(Long id) {
 		return categoriaRepository.findDTO(id); 
+	}
+	
+	public List<AlmacenDTO> listAlmacenDTO(Long id) {
+		return categoriaRepository.findPelAlm(id); 
 	}
 
 }
